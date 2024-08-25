@@ -1,0 +1,19 @@
+# Node modules
+node_modules/
+**/node_modules/
+
+# Uploads
+uploads/
+**/uploads/
+
+# Zip files
+*.zip
+**/*.zip
+
+# MP4 files
+*.mp4
+**/*.mp4
+
+# Package lock
+package-lock.json
+.vercel
