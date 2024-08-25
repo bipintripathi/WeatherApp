@@ -1,10 +1,16 @@
 const express = require('express');
+const moment = require('moment-timezone');
 const cron = require('node-cron');
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 const app = express();
 const PORT = 3000;
+//public
+app.use(express.static(path.join(__dirname, 'public')));
+// ejs config
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'))
 
 const cities = ['KOLKATA', 'MUMBAI', 'DELHI', 'CHENNAI'];
 
@@ -77,8 +83,26 @@ const fetchSingleCityWeather = async (city) => {
 
 
 app.get('/', (req, res) => {
-    res.send('Hello World');
+    const city = req.query.city.toUpperCase();
+    if(!cities.includes(city)){
+        res.send("City Not Exist in our system");
+    }
+    let weatherData  = fs.readFileSync(path.join(__dirname,"data",`${city}.json`))
+    weatherData = JSON.parse(weatherData);
+    // console.log(JSON.parse(weatherData));
+    // console.log(weatherData);
+    const istTimestamp = moment().tz("Asia/Kolkata").unix();
+    let timeStatus = "day";
+    let weatherStatus = "clear";
+    console.log(istTimestamp);
+    if(istTimestamp>=weatherData.sys.sunset ){
+        timeStatus = "night";
+    }
+    
+    res.render(`${timeStatus}-${weatherStatus}`);
 });
+
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);    
