@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Night Cloud</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+        <div class="frame night-cloud">
+              
+              <div class="clouds">
+                  <!-- Cloud elements can be created using CSS -->
+                  <div class="cloud-1"></div>
+                  <div class="cloud-2"></div>
+              </div>
+
+              <div class="moon">
+                  <div class="moon-glow"></div>
+              </div>
+
+              <div class="hill-bg-1"></div>
+              <div class="hill-bg-2"></div>
+              <div class="hill-fg-1"></div>
+              <div class="hill-fg-2"></div>
+              <div class="hill-fg-3"></div>
+
+              <div class="front">
+                  <div>
+                      <div class="temperature">
+                          <%= (weatherData.main.temp - 273.15).toFixed(1) %>°C
+                      </div>
+                      <div class="icons">
+                          <i class="fas fa-cloud-moon"></i><br/><i class="fas fa-tint"></i>
+                      </div>
+                      <div>
+                          <div class="info">
+							Wind Speed: E<%= weatherData.wind.speed %> km/h<br>Humidity :<%= weatherData.main.humidity %>% 
+                          </div>
+                          <table class="preview">
+                              <tbody>
+                                  <tr>
+                                      <td>Tue</td>
+                                      <td><%= (weatherData.main.temp_min - 273.15).toFixed(1) %>°C | <%= (weatherData.main.temp_max - 273.15).toFixed(1) %>°C</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Wed</td>
+                                      <td><%= (weatherData.main.temp_min - 273.15).toFixed(1) %>°C | <%= (weatherData.main.temp_max - 273.15).toFixed(1) %>°C</td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+                  <div class="proverb">“The night is dark and full of clouds.”</div>
+              </div>
+          </div>
+    </div>
+</body>
+</html>

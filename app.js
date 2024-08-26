@@ -41,7 +41,7 @@ app.post('/fetch-weather-data', async (req, res) => {
 
         // check if the file is older than 30 minutes
         console.log(fileStats.mtime);
-        if (fileStats.mtimeMs > (new Date().getTime() - 30 * 60 * 1000)) {            
+        if (fileStats.mtimeMs > (new Date().getTime() - 1 * 60 * 1000)) {            
             return res.json({ message: 'Weather data is up to date', status: 200 });            
         }
 
@@ -98,8 +98,26 @@ app.get('/', (req, res) => {
     if(istTimestamp>=weatherData.sys.sunset ){
         timeStatus = "night";
     }
+    if(weatherData.weather.filter((weather) => weather.main === "Clouds").length > 0){
+        weatherStatus = "cloud";
+    }
+    if(weatherData.weather.filter((weather) => weather.main === "Rain").length > 0){
+        weatherStatus = "rain";
+    }
+
+    if(weatherData.weather.filter((weather) => weather.main === "Snow").length > 0){
+        weatherStatus = "snow";
+    }
     
-    res.render(`${timeStatus}-${weatherStatus}`);
+    if(weatherData.weather.filter((weather) => weather.main === "Thunderstorm").length > 0){
+        weatherStatus = "thunderstorm";
+    }   
+ 
+    
+    res.render(`${timeStatus}-${weatherStatus}`, {weatherData,city});
+    // res.render('day-snow',{weatherData,city});
+    
+
 });
 
 
